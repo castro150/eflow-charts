@@ -10,6 +10,7 @@
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
+import http from '../services/http'
 
 export default {
   name: 'Charts',
@@ -69,6 +70,11 @@ export default {
     }
   },
 
+  created () {
+    this.updateFlow()
+    setInterval(this.updateFlow, 5000)
+  },
+
   methods: {
     updateChart () {
       const max = 90
@@ -86,6 +92,16 @@ export default {
       this.radialOptions = {
         labels: [`${Math.floor(Math.random() * 10) + 1} L/s`]
       }
+    },
+
+    updateFlow () {
+      http.getActualReading().then(res => {
+        this.radialOptions = {
+          labels: [`${res.data.flow.toFixed(2)} L/s`]
+        }
+      }).catch(err => {
+        console.error(`Actual reading request error: ${err}`)
+      })
     }
   }
 }

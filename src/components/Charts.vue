@@ -60,7 +60,7 @@ export default {
             }
           }
         },
-        labels: ['0 L/s']
+        labels: ['0 L/min']
       },
 
       barSeries: [{
@@ -90,14 +90,14 @@ export default {
 
       // Make sure to update the whole options config and not just a single property to allow the Vue watch catch the change.
       this.radialOptions = {
-        labels: [`${Math.floor(Math.random() * 10) + 1} L/s`]
+        labels: [`${Math.floor(Math.random() * 10) + 1} L/min`]
       }
     },
 
     updateFlow () {
       http.getActualReading().then(res => {
         this.radialOptions = {
-          labels: [`${res.data.flow.toFixed(2)} L/s`]
+          labels: [`${res.data.flow.toFixed(2)} L/min`]
         }
       }).catch(err => {
         console.error(`Actual reading request error: ${err}`)

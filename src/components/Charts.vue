@@ -43,16 +43,16 @@ export default {
             dataLabels: {
               showOn: 'always',
               name: {
-                offsetY: +27,
+                offsetY: +25,
                 show: true,
                 color: '#111',
                 fontSize: '36px'
               },
               value: {
                 formatter: function () {
-                  return 'Fluxo'
+                  return 'Vazão'
                 },
-                offsetY: -27,
+                offsetY: -25,
                 color: '#888',
                 fontSize: '17px',
                 show: true

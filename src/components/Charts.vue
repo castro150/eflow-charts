@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <apexcharts width="500" type="bar" :options="barOptions" :series="barSeries"></apexcharts>
-    <apexcharts width="500" type="radialBar" :options="radialOptions" :series="[0]"></apexcharts>
+  <div id="charts">
+    <div id="wrapper">
+      <div id="consumption"><apexcharts width="500" type="bar" :options="barOptions" :series="barSeries"></apexcharts></div>
+      <div id="flow"><apexcharts width="500" type="radialBar" :options="radialOptions" :series="[0]"></apexcharts></div>
+    </div>
     <div>
       <button @click="updateChart">Update</button>
     </div>
@@ -109,18 +111,20 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+#charts {
+  margin-left: 10vw;
+  margin-right: 10vw;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+#wrapper {
+  margin: 0 auto;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+#consumption {
+  float: left;
 }
-a {
-  color: #42b983;
+
+#flow {
+  float: right;
 }
 </style>

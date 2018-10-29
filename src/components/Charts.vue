@@ -29,7 +29,7 @@ export default {
         },
         colors: ['#008FFB'],
         xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+          categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
         }
       },
 
@@ -66,8 +66,8 @@ export default {
       },
 
       barSeries: [{
-        name: 'series-1',
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
+        name: 'Consumo (L)',
+        data: [30, 41, 37, 52, 49, 42, 38, 61, 59, 53, 47, 12]
       }]
     }
   },

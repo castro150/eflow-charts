@@ -4,9 +4,6 @@
       <div id="consumption"><apexcharts width="500" type="bar" :options="barOptions" :series="barSeries"></apexcharts></div>
       <div id="flow"><apexcharts width="500" type="radialBar" :options="radialOptions" :series="[0]"></apexcharts></div>
     </div>
-    <div>
-      <button @click="updateChart">Update</button>
-    </div>
   </div>
 </template>
 
@@ -67,33 +64,36 @@ export default {
 
       barSeries: [{
         name: 'Consumo (L)',
-        data: [30, 41, 37, 52, 49, 42, 38, 61, 59, 53, 47, 12]
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
       }]
     }
   },
 
   created () {
     this.updateFlow()
+    this.updateBars()
     setInterval(this.updateFlow, 5000)
+    setInterval(this.updateBars, 5000)
   },
 
   methods: {
-    updateChart () {
-      const max = 90
-      const min = 20
-      const newData = this.barSeries[0].data.map(() => {
-        return Math.floor(Math.random() * (max - min + 1)) + min
-      })
-
-      // In the same way, update the series option
-      this.barSeries = [{
-        data: newData
-      }]
-
-      // Make sure to update the whole options config and not just a single property to allow the Vue watch catch the change.
-      this.radialOptions = {
-        labels: [`${Math.floor(Math.random() * 10) + 1} L/min`]
-      }
+    updateBars () {
+      http.getConsumptionHistory()
+        .then(history => {
+          let newData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          if (history.length >= 0) {
+            newData[history[0].month] = +(history[0].totalConsumption.toFixed(1))
+            for (let index = 1; index < history.length; index++) {
+              let actual = history[index].totalConsumption
+              let before = history[index - 1].totalConsumption
+              newData[history[index].month] = +((actual - before).toFixed(1))
+            }
+          }
+          this.barSeries = [{
+            name: 'Consumo (L)',
+            data: newData
+          }]
+        })
     },
 
     updateFlow () {

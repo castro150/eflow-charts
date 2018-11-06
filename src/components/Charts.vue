@@ -82,11 +82,11 @@ export default {
         .then(history => {
           let newData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
           if (history.length >= 0) {
-            newData[history[0].month] = +(history[0].totalConsumption.toFixed(1))
+            newData[history[0].month - 1] = +(history[0].totalConsumption.toFixed(1))
             for (let index = 1; index < history.length; index++) {
               let actual = history[index].totalConsumption
               let before = history[index - 1].totalConsumption
-              newData[history[index].month] = +((actual - before).toFixed(1))
+              newData[history[index].month - 1] = +((actual - before).toFixed(1))
             }
           }
           this.barSeries = [{
